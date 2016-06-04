@@ -1,11 +1,6 @@
 {
   "server_port": 8080,
   "database": {
-      "host": "localhost",
-      "read_user": "wf_read",
-      "read_password": "wf_read",
-      "write_user": "wf_write",
-      "write_password": "wf_write",
-      "database": "weather_forecast"
+      "filename": "auction.db"
   }
 }
