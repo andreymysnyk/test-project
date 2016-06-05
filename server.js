@@ -10,7 +10,7 @@ server.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 server.use('/user', routes.user);
-server.use(express.static('public'));
+server.use(express.static('web'));
 
 
 module.exports = server;
