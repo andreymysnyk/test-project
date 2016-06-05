@@ -1,3 +1,28 @@
-body {
-    font-size: 12px;
+.centered {
+    text-align: center;
+}
+
+.widget-container {
+    border: 1px solid #87ceeb;
+}
+
+.widget-title {
+    text-align: center;
+    padding: 2px 5px;
+    border-bottom: 1px solid #87ceeb;
+    font-size: 110%;
+}
+
+.widget-content {
+    padding: 2px 5px;
+}
+
+.widget-content .value {
+    font-weight: bold;
+}
+
+.logout-btn {
+    background: url('/img/logout.png') no-repeat 50% 50%;
+    height: 22px;
+    cursor: pointer;
 }

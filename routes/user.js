@@ -22,6 +22,21 @@ router.post('/login', function(req, res) {
     }));
 });
 
+router.post('/get', function(req, res) {
+    var session_token = req.body.session_token;
+    getUserByToken(session_token, errorHandler(res, function (err, user) {
+        if (user) {
+            getUserCoins(user.id, errorHandler(res, function(err, coins) {
+                user.coins = coins;
+
+                res.send(user);
+            }));
+        } else {
+            res.send({});
+        }
+    }));
+});
+
 router.post('/logout', function(req, res) {
     var session_token = req.body.session_token;
     getUserByToken(session_token, errorHandler(res, function (err, user) {
@@ -70,6 +85,20 @@ function getUserByToken(session_token, cb) {
             }
 
             cb(null, row);
+        });
+    });
+}
+
+function getUserCoins(userId, cb) {
+    database.runQuery(function(err, db) {
+        db.get('SELECT SUM(amount) coins from billing WHERE user_id = ?', [userId], function(err, row) {
+            if (err) {
+                console.log(err);
+                cb(err);
+                return;
+            }
+
+            cb(null, row.coins);
         });
     });
 }

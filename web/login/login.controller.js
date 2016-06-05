@@ -1,16 +1,10 @@
 (function () {
     angular.module('auction')
-    .controller('LoginController', ['$window', '$location', '$scope', '$http', function ($window, $location, $scope, $http) {
+    .controller('LoginController', ['$scope', 'User', function ($scope, User) {
         $scope.username = '';
 
         $scope.login = function () {
-            $http.post('/user/login', {username: $scope.username}).then(
-                function(response) {
-                    $window.sessionStorage.session_token = response.data;
-                    $location.path('/');
-                }, function (response) {
-                    console.log(response);
-            });
+            User.login($scope.username);
         };
     }]);
 })();
