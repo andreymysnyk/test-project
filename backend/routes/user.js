@@ -5,65 +5,46 @@ var router = express.Router();
 
 router.post('/login', function(req, res) {
     var username = req.body.username;
-    getUserByName(username, function (err, user) {
-        if (err) {
-            res.sendStatus(501);
-            return;
-        }
-
+    getUserByName(username, errorHandler(res, function (err, user) {
         var session_token = uuid.v1();
 
         if (user) {
-            updateSessionToken(username, session_token, function(err) {
-                if (err) {
-                    res.sendStatus(501);
-                    return;
-                }
-
+            updateSessionToken(username, session_token, errorHandler(res, function(err) {
                 res.send(session_token);
-            });
+            }));
         } else {
-            registerUser(username, session_token, function(err, userId) {
-                if (err) {
-                    res.sendStatus(501);
-                    return;
-                }
-
-                initUser(userId, function(err) {
-                    if (err) {
-                        res.sendStatus(501);
-                        return;
-                    }
-
+            registerUser(username, session_token, errorHandler(res, function(err, userId) {
+                initUser(userId, errorHandler(res, function(err) {
                     res.send(session_token);
-                });
-            });
+                }));
+            }));
         }
-    });
+    }));
 });
 
 router.post('/logout', function(req, res) {
     var session_token = req.body.session_token;
-    getUserByToken(session_token, function (err, user) {
+    getUserByToken(session_token, errorHandler(res, function (err, user) {
+        if (user) {
+            updateSessionToken(user.name, '', errorHandler(res, function(err) {
+                res.send({});
+            }));
+        } else {
+            res.send({});
+        }
+    }));
+});
+
+function errorHandler(res, cb) {
+    return function (err, result) {
         if (err) {
             res.sendStatus(501);
             return;
         }
 
-        if (user) {
-            updateSessionToken(user.name, '', function(err) {
-                if (err) {
-                    res.sendStatus(501);
-                    return;
-                }
-
-                res.send();
-            });
-        } else {
-            res.send();
-        }
-    });
-});
+        cb(err, result);
+    }
+}
 
 function getUserByName(username, cb) {
     database.runQuery(function(err, db) {
