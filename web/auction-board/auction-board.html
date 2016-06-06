@@ -1,0 +1,50 @@
+<div class="widget-container">
+    <div class="widget-title">
+        Auction
+    </div>
+
+    <div class="widget-content">
+        <div ng-show="auction">
+            <div>{{auction.userName}}</div>
+            <div>
+                <img src="/img/{{auction.img}}" />
+            </div>
+            <div>
+                {{auction.itemName}}
+            </div>
+            <div>
+                {{auction.item_count}}
+            </div>
+            <div>
+                {{auction.bid}}
+            </div>
+            <div ng-show="auction.timerLocal >= 0">
+                {{auction.timerLocal}} sec
+            </div>
+            <div ng-show="auction.timerLocal < 0">
+                Done
+            </div>
+
+            <div ng-show="auction.timerLocal >= 0 && auction.owner_id != user.id">
+                <form name="postBidForm">
+                    <div class="form-group row" ng-class="{ 'has-error': postBidForm.my_bid.$dirty && postBidForm.my_bid.$invalid }">
+                        <div class="col-md-4">
+                            <label for="my_bid" class="control-label">Bid</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input name="my_bid" id="my_bid" type="number" min="{{auction.bid + 1}}" max="{{user.coins}}" class="form-control" ng-model="auction.my_bid" required ng-pattern="/^\d+$/" />
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary" ng-click="postBid(auction.my_bid)" ng-disabled="postBidForm.$invalid || (user.coins < auction.bid + 1)">Start auction</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div ng-show="!auction">
+            No active auction
+        </div>
+    </div>
+</div>
+
