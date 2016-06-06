@@ -97,9 +97,9 @@ exports.initUser = function (userId, cb) {
                 if (err) {
                     console.log(err);
                 }
-            });
 
-            cb(null);
+                cb(null);
+            });
         });
     });
 };
