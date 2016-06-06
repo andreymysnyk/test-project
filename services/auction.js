@@ -1,4 +1,5 @@
 var database = require('../database');
+var broadcast = require('../services/broadcast');
 
 var STATUS = {
     NEW: 0,
@@ -50,6 +51,8 @@ exports.postBid = function (auctionId, userId, bid, cb) {
                 cb(err);
                 return;
             }
+
+            broadcast.broadcast({code: 'update auction'});
 
             cb(null);
         });

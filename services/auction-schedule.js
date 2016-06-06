@@ -1,5 +1,6 @@
 var auctions = require('./auction');
 var database = require('../database');
+var broadcast = require('../services/broadcast');
 
 // schedule to manage auctions
 setInterval(function() {
@@ -66,6 +67,10 @@ setInterval(function() {
                 db.run('UPDATE auction SET status = ?, created = ? WHERE id IN (SELECT id FROM auction WHERE status = ? ORDER BY created LIMIT 1)', [auctions.STATUS.ACTIVE, new Date(), auctions.STATUS.NEW], function(err) {
                     if (err) {
                         console.log(err);
+                    }
+
+                    if (this.changes > 0) {
+                        broadcast.broadcast({code: 'new action'});
                     }
                 });
             });

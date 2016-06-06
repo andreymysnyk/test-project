@@ -1,3 +1,3 @@
 (function () {
-    var app = angular.module('auction', ['ngRoute', 'ngDialog']);
+    var app = angular.module('auction', ['ngRoute', 'ngDialog', 'ngWebSocket']);
 })();

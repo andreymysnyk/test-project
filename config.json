@@ -1,5 +1,6 @@
 {
   "server_port": 8080,
+  "websocket_server_port": 8001,
   "database": {
       "filename": "auction.db"
   }

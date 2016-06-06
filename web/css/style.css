@@ -2,6 +2,17 @@
     text-align: center;
 }
 
+.main-container {
+    width: 990px;
+    margin: 0 auto;
+}
+
+.widget-wrapper {
+    width: 330px;
+    float: left;
+    padding: 15px;
+}
+
 .widget-container {
     border: 1px solid black;
 }

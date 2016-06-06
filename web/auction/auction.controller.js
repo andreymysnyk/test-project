@@ -1,6 +1,6 @@
 (function () {
     angular.module('auction')
-    .controller('AuctionController', ['$scope', 'User', 'Auction', 'ngDialog', '$interval', '$timeout', function ($scope, User, Auction, ngDialog, $interval, $timeout) {
+    .controller('AuctionController', ['$scope', 'User', 'Auction', 'ngDialog', '$interval', '$timeout', '$websocket', '$location', function ($scope, User, Auction, ngDialog, $interval, $timeout, $websocket, $location) {
         $scope.user = {};
         $scope.items = [];
         $scope.auction = {};
@@ -49,7 +49,11 @@
 
         function reloadInfo() {
             User.getUser().then(function(response) {
-                $scope.user = response.data;
+                if (response.data.id) {
+                    $scope.user = response.data;
+                } else {
+                    $scope.logout();
+                }
             });
 
             User.getItems().then(function(response) {
@@ -65,5 +69,11 @@
                 }
             });
         }
+
+        // websocket
+        var dataStream = $websocket('ws://' + $location.host() + ':8001/');
+        dataStream.onMessage(function(message) {
+            reloadInfo();
+        });
     }]);
 })();

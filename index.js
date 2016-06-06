@@ -10,3 +10,7 @@ server.listen(nconf.get('server_port'), function () {
 
 // start auction schedule
 require('./services/auction-schedule');
+
+// websocket server
+var websocket =  require('./server-websocket');
+websocket.listen(nconf.get('websocket_server_port'));
