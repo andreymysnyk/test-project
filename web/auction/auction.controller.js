@@ -23,10 +23,20 @@
                     $timeout(function () {
                         reloadInfo();
                     }, 1000);
-                    console.log(response);
+                    $scope.showInfoDialog('Auction queued');
                 }, function (response) {
-                    console.log(response);
+                    $scope.showInfoDialog('Error creating auction');
                 });
+            });
+        };
+
+        $scope.showInfoDialog = function(message) {
+            ngDialog.open({
+                template: 'items/auction-info.html',
+                className: 'ngdialog-theme-plain',
+                data: {
+                    message: message
+                }
             });
         };
 
