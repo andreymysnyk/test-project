@@ -5,7 +5,7 @@
 
     <div class="widget-content items">
         <div ng-repeat="item in items" class="item">
-            <div class="col-md-5 row">
+            <div class="col-md-4 row">
                 <div>
                     <div class="centered">
                         <img src="/img/{{item.img}}" />
@@ -17,7 +17,7 @@
                 <div class="centered item-label">Quantity</div>
                 <div class="centered value">{{item.count}}</div>
             </div>
-            <div class="col-md-5 row pointer" ng-click="showAuctionDialog()">
+            <div class="col-md-4 row pointer" ng-click="showAuctionDialog(item)">
                 <div>
                     <div class="centered">
                         <img src="/img/auction.png" />

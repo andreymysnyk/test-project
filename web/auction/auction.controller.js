@@ -16,8 +16,16 @@
             User.logout();
         };
 
-        $scope.showAuctionDialog = function () {
-            ngDialog.open({ template: 'items/startAuction.html', className: 'ngdialog-theme-plain' });
+        $scope.showAuctionDialog = function (item) {
+            ngDialog.openConfirm({
+                template: 'items/startAuction.html',
+                className: 'ngdialog-theme-plain',
+                data: {
+                    count: item.count
+                }
+            }).then(function(data) {
+                console.log(data);
+            });
         }
     }]);
 })();
