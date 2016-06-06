@@ -42,7 +42,7 @@
             </div>
 
             <div class="auction-info">
-                <div class="col-xs-5">Winning bid:</div>
+                <div class="col-xs-5">{{auction.bid_time > 0 ? 'Winning bid:' : 'Minimum bid:'}}</div>
                 <div class="col-xs-7 value">{{auction.bid}}</div>
                 <div class="clearfix"></div>
             </div>
@@ -65,7 +65,7 @@
         </div>
 
         <div class="auction-info" ng-show="!auction">
-            No active auction
+            No auction at the moment.
         </div>
     </div>
 </div>
