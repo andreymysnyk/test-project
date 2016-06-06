@@ -4,7 +4,8 @@
         return {
             login: login,
             logout: logout,
-            getUser: getUser
+            getUser: getUser,
+            getItems: getItems
         };
 
         function login(username) {
@@ -30,6 +31,10 @@
 
         function getUser() {
             return $http.post('/user/get', {session_token: $window.sessionStorage.session_token});
+        }
+
+        function getItems() {
+            return $http.post('/user/items', {session_token: $window.sessionStorage.session_token});
         }
     }]);
 })();

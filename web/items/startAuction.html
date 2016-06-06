@@ -1,0 +1,15 @@
+<div class="ngdialog-message">
+    <h3>Start auction</h3>
+    <div class="row">
+        <div class="col-md-4">Quantity</div>
+        <div class="col-md-8"><input type="number" min="1" max="30" class=""/></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Minimum bid</div>
+        <div class="col-md-8"><input type="number" min="1" /></div>
+    </div>
+</div>
+<div class="ngdialog-buttons">
+    <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('Cancel')">Cancel</button>
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm('Save')">Start auction</button>
+</div>

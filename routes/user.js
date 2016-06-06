@@ -37,6 +37,19 @@ router.post('/get', function(req, res) {
     }));
 });
 
+router.post('/items', function(req, res) {
+    var session_token = req.body.session_token;
+    getUserByToken(session_token, errorHandler(res, function (err, user) {
+        if (user) {
+            getUserItems(user.id, errorHandler(res, function (err, items) {
+                res.send(items);
+            }));
+        } else {
+            res.send({});
+        }
+    }));
+});
+
 router.post('/logout', function(req, res) {
     var session_token = req.body.session_token;
     getUserByToken(session_token, errorHandler(res, function (err, user) {
@@ -99,6 +112,20 @@ function getUserCoins(userId, cb) {
             }
 
             cb(null, row.coins);
+        });
+    });
+}
+
+function getUserItems(userId, cb) {
+    database.runQuery(function(err, db) {
+        db.all('SELECT id, name, img, count from user_item LEFT JOIN item ON id = item_id WHERE user_id = ?', [userId], function(err, rows) {
+            if (err) {
+                console.log(err);
+                cb(err);
+                return;
+            }
+
+            cb(null, rows);
         });
     });
 }

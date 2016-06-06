@@ -1,0 +1,32 @@
+<div class="widget-container">
+    <div class="widget-title">
+        Items
+    </div>
+
+    <div class="widget-content items">
+        <div ng-repeat="item in items" class="item">
+            <div class="col-md-5 row">
+                <div>
+                    <div class="centered">
+                        <img src="/img/{{item.img}}" />
+                    </div>
+                </div>
+                <div class="centered item-label">{{item.name}}</div>
+            </div>
+            <div class="col-md-5">
+                <div class="centered item-label">Quantity</div>
+                <div class="centered value">{{item.count}}</div>
+            </div>
+            <div class="col-md-5 row pointer" ng-click="showAuctionDialog()">
+                <div>
+                    <div class="centered">
+                        <img src="/img/auction.png" />
+                    </div>
+                </div>
+                <div class="centered item-label">Auction</div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+

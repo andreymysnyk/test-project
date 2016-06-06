@@ -3,13 +3,13 @@
 }
 
 .widget-container {
-    border: 1px solid #87ceeb;
+    border: 1px solid black;
 }
 
 .widget-title {
     text-align: center;
     padding: 2px 5px;
-    border-bottom: 1px solid #87ceeb;
+    border-bottom: 1px solid black;
     font-size: 110%;
 }
 
@@ -19,6 +19,24 @@
 
 .widget-content .value {
     font-weight: bold;
+}
+
+.widget-content .item-label {
+    font-size: 90%;
+}
+
+.widget-content .pointer {
+    cursor: pointer;
+}
+
+.widget-content .item {
+    border-bottom: 1px solid black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.widget-content.items :last-child {
+    border-bottom: none;
 }
 
 .logout-btn {
