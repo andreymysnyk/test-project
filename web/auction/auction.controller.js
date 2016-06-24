@@ -23,16 +23,39 @@
                     $timeout(function () {
                         reloadInfo();
                     }, 1000);
-                    console.log(response);
+                    $scope.showInfoDialog('Auction queued');
                 }, function (response) {
-                    console.log(response);
+                    $scope.showInfoDialog('Error creating auction');
                 });
+            });
+        };
+
+        $scope.showInfoDialog = function(message) {
+            ngDialog.open({
+                template: 'items/auction-info.html',
+                className: 'ngdialog-theme-plain',
+                data: {
+                    message: message
+                }
             });
         };
 
         $scope.postBid = function (myBid) {
             Auction.bid(myBid).then(function(response) {
                 reloadInfo();
+                $scope.showBidInfoDialog('Bid placed');
+            }, function (response) {
+                $scope.showBidInfoDialog('Error placing bid');
+            });
+        };
+
+        $scope.showBidInfoDialog = function(message) {
+            ngDialog.open({
+                template: 'auction-board/place-bid-info.html',
+                className: 'ngdialog-theme-plain',
+                data: {
+                    message: message
+                }
             });
         };
 

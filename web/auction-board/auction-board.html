@@ -5,45 +5,67 @@
 
     <div class="widget-content">
         <div ng-show="auction">
-            <div>{{auction.userName}}</div>
-            <div>
-                <img src="/img/{{auction.img}}" />
+            <div class="auction-info">
+                <div class="col-xs-5">Seller name:</div>
+                <div class="col-xs-7 value">{{auction.userName}}</div>
+                <div class="clearfix"></div>
             </div>
-            <div>
-                {{auction.itemName}}
+
+            <div class="auction-info">
+                <div class="col-xs-6">
+                    <div>
+                        <div class="centered">
+                            <img src="/img/{{auction.img}}" />
+                        </div>
+                    </div>
+                    <div class="centered item-label">{{auction.itemName}}</div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="centered item-label">Quantity</div>
+                    <div class="centered value">{{auction.item_count}}</div>
+                </div>
+                <div class="clearfix"></div>
             </div>
-            <div>
-                {{auction.item_count}}
+
+            <div class="auction-info">
+                <div class="col-xs-5">Time left:</div>
+                <div class="col-xs-7 value">
+                    <div ng-show="auction.timerLocal >= 0">
+                        {{auction.timerLocal}} seconds
+                    </div>
+                    <div ng-show="auction.timerLocal < 0">
+                        Finished
+                    </div>
+                </div>
+                <div class="clearfix"></div>
             </div>
-            <div>
-                {{auction.bid}}
-            </div>
-            <div ng-show="auction.timerLocal >= 0">
-                {{auction.timerLocal}} sec
-            </div>
-            <div ng-show="auction.timerLocal < 0">
-                Done
+
+            <div class="auction-info">
+                <div class="col-xs-5">{{auction.bid_time > 0 ? 'Winning bid:' : 'Minimum bid:'}}</div>
+                <div class="col-xs-7 value">{{auction.bid}}</div>
+                <div class="clearfix"></div>
             </div>
 
             <div ng-show="auction.timerLocal >= 0 && auction.owner_id != user.id">
                 <form name="postBidForm">
-                    <div class="form-group" ng-class="{ 'has-error': postBidForm.my_bid.$dirty && postBidForm.my_bid.$invalid }">
-                        <div class="col-xs-4">
-                            <label for="my_bid" class="control-label">Bid</label>
+                    <div class="form-group centered" ng-class="{ 'has-error': postBidForm.my_bid.$dirty && postBidForm.my_bid.$invalid }">
+                        <div class="auction-info">
+                            <div class="col-xs-4 col-xs-offset-4">
+                                <input name="my_bid" id="my_bid" type="number" min="{{auction.bid + 1}}" max="{{user.coins}}" class="form-control" ng-model="auction.my_bid" required ng-pattern="/^\d+$/" />
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="col-xs-8">
-                            <input name="my_bid" id="my_bid" type="number" min="{{auction.bid + 1}}" max="{{user.coins}}" class="form-control" ng-model="auction.my_bid" required ng-pattern="/^\d+$/" />
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-primary" ng-click="postBid(auction.my_bid)" ng-disabled="postBidForm.$invalid || (user.coins < auction.bid + 1)">Bid</button>
+                        <div class="auction-info">
+                            <button type="button" class="btn btn-primary" ng-click="postBid(auction.my_bid)" ng-disabled="postBidForm.$invalid || (user.coins < auction.bid + 1)">Place Bid</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div ng-show="!auction">
-            No active auction
+        <div class="auction-info" ng-show="!auction">
+            No auction at the moment.
         </div>
     </div>
 </div>
